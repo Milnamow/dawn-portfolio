@@ -40,10 +40,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <PersonSchema />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <PersonSchema />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"          // "light" | "dark" | "system"
