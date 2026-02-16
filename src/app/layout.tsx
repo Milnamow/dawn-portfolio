@@ -17,11 +17,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Dawn Milnamow | Software Engineer & Front-End Developer",
-  description: "Dawn Milnamow – Full-stack developer specializing in Next.js, React, Tailwind CSS, and shadcn/ui. Based in Hockessin, Delaware and Saint Petersburg, Florida. View projects, resume, and contact.",
+  description: "Dawn Milnamow – Full-stack developer. Based in Hockessin, Delaware and Saint Petersburg, Florida.",
   keywords: ["Dawn Milnamow", "software engineer", "Next.js developer", "React developer", "front-end developer", "Delaware", "Florida"],
   openGraph: {
     title: "Dawn Milnamow – Software Engineer",
-    description: "Dawn Milnamow – Full-stack developer specializing in Next.js, React, Tailwind CSS, and shadcn/ui. Based in Hockessin, Delaware and Saint Petersburg, Florida. View projects, resume, and contact.",
+    description: "Dawn Milnamow – Full-stack developer. Based in Hockessin, Delaware and Saint Petersburg, Florida.",
     url: "https://dawnmilnamow.com",
     siteName: "Dawn Milnamow Portfolio",
     images: ["/images/dawnmilnamow.jpg"],
