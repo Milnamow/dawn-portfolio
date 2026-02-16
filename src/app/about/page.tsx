@@ -1,4 +1,10 @@
 import { Separator } from "@/components/ui/separator";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About | Dawn Milnamow",
+  description: "Information about Dawn Milnamow",
+};
 
 export default function AboutPage() {
   return (
@@ -9,7 +15,7 @@ export default function AboutPage() {
             About me
           </h1>
           <p className="mt-3 text-muted-foreground md:text-lg">
-            Frontend developer passionate about performance and clean code.
+            Frontend developer passionate about performance, accessibility and clean code.
           </p>
         </div>
 
