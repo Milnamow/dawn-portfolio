@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Dawn Milnamow – Software Engineer",
     description: "Dawn Milnamow – Full-stack developer. Based in Hockessin, Delaware and Saint Petersburg, Florida.",
-    url: "https://dawnmilnamow.com",
+    url: "https://www.dawnmilnamow.com",
     siteName: "Dawn Milnamow Portfolio",
     images: ["/images/dawnmilnamow.jpg"],
     locale: "en_US",
