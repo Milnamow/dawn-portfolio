@@ -8,17 +8,20 @@ import { PersonSchema } from "@/components/Schema";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  preload: false
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  preload: false
 });
 
 export const metadata: Metadata = {
-  title: "Dawn Milnamow | Software Engineer & Front-End Developer",
+  metadataBase: new URL('https://www.dawnmilnamow.com'),
+  title: "Dawn Milnamow | Software Engineer",
   description: "Dawn Milnamow – Full-stack developer. Based in Hockessin, Delaware and Saint Petersburg, Florida.",
-  keywords: ["Dawn Milnamow", "software engineer", "Next.js developer", "React developer", "front-end developer", "Delaware", "Florida"],
+  keywords: ["Dawn Milnamow", "software engineer", "Next.js developer", "React developer", "front-end developer", "full-stack developer", "Delaware", "Florida"],
   openGraph: {
     title: "Dawn Milnamow – Software Engineer",
     description: "Dawn Milnamow – Full-stack developer. Based in Hockessin, Delaware and Saint Petersburg, Florida.",

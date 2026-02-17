@@ -13,7 +13,7 @@ export default function Home() {
         </div>
         <h1 className="text-4xl font-bold">Dawn Milnamow</h1>
         <div>
-          <p className="text-xl">Software Engineer • Fullstack</p>
+          <p className="text-xl">Software Engineer • Full-stack</p>
           <p className="text-md">Hockessin, DE • Saint Petersburg, FL</p>
         </div>
       </main>

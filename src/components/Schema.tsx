@@ -8,7 +8,7 @@ export function PersonSchema() {
           "@type": "Person",
           name: "Dawn Milnamow",
           jobTitle: "Software Engineer",
-          url: "https://dawnmilnamow.com", // your domain
+          url: "https://www.dawnmilnamow.com", // your domain
           sameAs: [
             "https://www.linkedin.com/in/dawnmilnamow",
             "https://github.com/dawnmil"
@@ -27,8 +27,8 @@ export function PersonSchema() {
             postalCode: "33710",
             addressCountry: "US"
           },
-          description: "Front-end focused software engineer.",
-          image: "https://dawnmilnamow.com/images/dawnmilnamow.jpg"
+          description: "Full-stack software engineer.",
+          image: "https://www.dawnmilnamow.com/images/dawnmilnamow.jpg"
         }),
       }}
     />

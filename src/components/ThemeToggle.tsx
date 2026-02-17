@@ -38,7 +38,7 @@ export function ThemeToggle({size = "sm"}: ThemeToggleProps) {
       <DropdownMenuContent align="end">
         {themeItems.map((item) => {
             return (
-               <DropdownMenuItem className={sizeClass} onClick={() => setTheme(item.toLowerCase())}>{item}</DropdownMenuItem>
+               <DropdownMenuItem key={item} className={sizeClass} onClick={() => setTheme(item.toLowerCase())}>{item}</DropdownMenuItem>
             )
         })}
       </DropdownMenuContent>
