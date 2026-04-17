@@ -47,7 +47,7 @@ export default function HeroVideo() {
   };
 
   return (
-    <div className="flex justify-center py-12 md:py-20">
+    <div className="flex justify-center">
       <div
         className="relative w-[320px] h-[320px] md:w-[420px] md:h-[420px] lg:w-[480px] lg:h-[480px] cursor-pointer group"
         onMouseEnter={handleMouseEnter}
