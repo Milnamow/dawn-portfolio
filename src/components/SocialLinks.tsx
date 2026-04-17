@@ -1,6 +1,6 @@
 "use client";
 
-import { SiGithub, SiLinkedin } from "react-icons/si";
+import { SiGithub, SiInstagram, SiLinkedin } from "react-icons/si";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -44,6 +44,24 @@ export function SocialLinks({ className, iconSize = 20 }: SocialLinksProps) {
         >
           <SiLinkedin 
             title="LinkedIn" 
+            className={`h-[${iconSize}px] w-[${iconSize}px]`} 
+          />
+        </a>
+      </Button>
+
+      <Button
+        variant="ghost"
+        size="icon"
+        asChild
+        aria-label="Instagram profile"
+      >
+        <a
+          href="https://www.instagram.com/dawnmilnamow" // ← update to your real LinkedIn
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <SiInstagram 
+            title="Instagram" 
             className={`h-[${iconSize}px] w-[${iconSize}px]`} 
           />
         </a>
