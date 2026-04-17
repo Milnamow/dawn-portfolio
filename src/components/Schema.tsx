@@ -28,7 +28,7 @@ export function PersonSchema() {
             addressCountry: "US"
           },
           description: "Full-stack software engineer.",
-          image: "https://www.dawnmilnamow.com/images/dawnmilnamow.jpg"
+          video: "https://www.dawnmilnamow.com/videos/hero-video.mp4"
         }),
       }}
     />

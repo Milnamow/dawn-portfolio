@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     description: "Dawn Milnamow – Full-stack developer. Based in Hockessin, Delaware and Saint Petersburg, Florida.",
     url: "https://www.dawnmilnamow.com",
     siteName: "Official website of Dawn Milnamow",
-    images: ["/images/dawnmilnamow.jpg"],
+    videos: ["/videos/hero-video.mp4"],
     locale: "en_US",
     type: "website",
   },
