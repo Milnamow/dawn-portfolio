@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://dawnmilnamow.com'; // your domain
+  const baseUrl = 'https://www.dawnmilnamow.com'; // your domain
 
   return [
     {
