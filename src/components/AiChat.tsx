@@ -27,7 +27,6 @@ export default function AiChat() {
   const chatRef = useRef<HTMLDivElement>(null);
 
   const handleSend = async () => {
-    console.log('env', process.env.NODE_ENV);
     if (!input.trim() || isThinking) return;
 
     const userMessage: Message = { role: 'user', content: input };
