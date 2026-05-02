@@ -8,7 +8,7 @@ export function middleware(request: NextRequest) {
   // === Bot Blocking & Logging ===
   if (isBotScan(pathname)) {
     console.log(`[BOT_BLOCKED] ${pathname}`);
-    return new NextResponse(null, { status: 404 });
+    return new NextResponse(null, { status: 403 });
   }
 
   // === Search Query Logging (only when successful) ===
@@ -29,9 +29,10 @@ function isBotScan(pathname: string): boolean {
   return lower.includes('wp-admin') ||
          lower.includes('wp-login') ||
          lower.includes('wp-content') ||
-         lower.includes('xmlrpc') ||
+         lower.includes('xmlrpc.php') ||
          lower.includes('.env') ||
-         lower.includes('wp-json');
+         lower.includes('wp-json') ||
+         lower.includes('config') && lower.includes('backup');
 }
 
 function getSearchQuery(referrer: string): string | null {
