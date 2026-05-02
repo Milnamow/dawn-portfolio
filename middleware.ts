@@ -1,27 +1,45 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { track } from '@vercel/analytics/server';
 
 export function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
   const referrer = request.headers.get('referer');
-  
-  // Always log that middleware ran
-  console.log(`[Middleware] Path: ${request.nextUrl.pathname} | Referrer: ${referrer ? 'present' : 'none'}`);
 
+  // === Bot / WordPress scan blocking ===
+  if (isBotScan(pathname)) {
+    console.log(`[BOT_SCAN] Blocked: ${pathname} from ${request.ip || 'unknown'}`);
+    return new NextResponse(null, { status: 404 });
+  }
+
+  // === Search Referral Tracking ===
   if (referrer) {
+    console.log(`[DEBUG_REFERRER] Full: ${referrer}`);
+
     const query = getSearchQuery(referrer);
+    
     if (query) {
       const source = getSource(referrer);
-      console.log(`[SEARCH_REFERRAL] query="${query}" source="${source}" path="${request.nextUrl.pathname}"`);
-      
-      // Optional: track even if on Hobby (it just won't show in Events panel)
-      try {
-        track('Search Referral', { query, source, path: request.nextUrl.pathname });
-      } catch (e) {}
+      console.log(`[SEARCH_REFERRAL] SUCCESS! query="${query}" source="${source}" path="${pathname}"`);
+    } else {
+      console.log(`[SEARCH_REFERRAL] No query extracted from referrer`);
     }
+  } else {
+    console.log(`[Middleware] Path: ${pathname} | No referrer`);
   }
 
   return NextResponse.next();
+}
+
+// Block common bot/attack paths
+function isBotScan(pathname: string): boolean {
+  const lower = pathname.toLowerCase();
+  return lower.includes('wp-admin') ||
+         lower.includes('wp-login') ||
+         lower.includes('wp-content') ||
+         lower.includes('xmlrpc') ||
+         lower.includes('.env') ||
+         lower.includes('wp-json') ||
+         lower === '/wp.php';
 }
 
 function getSearchQuery(referrer: string): string | null {
@@ -46,6 +64,7 @@ function getSource(referrer: string): string {
     const h = new URL(referrer).hostname.toLowerCase();
     if (h.includes('google')) return 'google';
     if (h.includes('duckduckgo')) return 'duckduckgo';
+    if (h.includes('bing')) return 'bing';
     return 'other';
   } catch {
     return 'unknown';
