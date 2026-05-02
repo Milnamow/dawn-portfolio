@@ -4,28 +4,21 @@ import type { NextRequest } from 'next/server';
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const referrer = request.headers.get('referer');
-  const userAgent = request.headers.get('user-agent') || 'unknown';
 
-  // === Bot / WordPress scan blocking ===
+  // === Bot Blocking & Logging ===
   if (isBotScan(pathname)) {
-    console.log(`[BOT_SCAN] Blocked: ${pathname} | UA: ${userAgent.substring(0, 80)}...`);
+    console.log(`[BOT_BLOCKED] ${pathname}`);
     return new NextResponse(null, { status: 404 });
   }
 
-  // === Search Referral Tracking ===
+  // === Search Query Logging (only when successful) ===
   if (referrer) {
-    console.log(`[DEBUG_REFERRER] Full: ${referrer}`);
-
     const query = getSearchQuery(referrer);
     
     if (query) {
       const source = getSource(referrer);
-      console.log(`[SEARCH_REFERRAL] SUCCESS! query="${query}" source="${source}" path="${pathname}"`);
-    } else {
-      console.log(`[SEARCH_REFERRAL] No query extracted`);
+      console.log(`[SEARCH_REFERRAL] query="${query}" source="${source}" path="${pathname}"`);
     }
-  } else {
-    console.log(`[Middleware] Path: ${pathname} | No referrer`);
   }
 
   return NextResponse.next();
@@ -48,7 +41,7 @@ function getSearchQuery(referrer: string): string | null {
     const params = url.searchParams;
 
     if (hostname.includes('google')) return params.get('q') || params.get('p');
-    if (hostname.includes('duckduckgo')) return params.get('q');
+    if (hostname.includes('duckduckgo')) return params.get('q') || params.get('query');
     if (hostname.includes('bing')) return params.get('q');
     if (hostname.includes('yahoo')) return params.get('p') || params.get('q');
 
