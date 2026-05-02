@@ -4,10 +4,11 @@ import type { NextRequest } from 'next/server';
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const referrer = request.headers.get('referer');
+  const userAgent = request.headers.get('user-agent') || 'unknown';
 
   // === Bot / WordPress scan blocking ===
   if (isBotScan(pathname)) {
-    console.log(`[BOT_SCAN] Blocked: ${pathname} from ${request.ip || 'unknown'}`);
+    console.log(`[BOT_SCAN] Blocked: ${pathname} | UA: ${userAgent.substring(0, 80)}...`);
     return new NextResponse(null, { status: 404 });
   }
 
@@ -21,7 +22,7 @@ export function middleware(request: NextRequest) {
       const source = getSource(referrer);
       console.log(`[SEARCH_REFERRAL] SUCCESS! query="${query}" source="${source}" path="${pathname}"`);
     } else {
-      console.log(`[SEARCH_REFERRAL] No query extracted from referrer`);
+      console.log(`[SEARCH_REFERRAL] No query extracted`);
     }
   } else {
     console.log(`[Middleware] Path: ${pathname} | No referrer`);
@@ -30,7 +31,6 @@ export function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
-// Block common bot/attack paths
 function isBotScan(pathname: string): boolean {
   const lower = pathname.toLowerCase();
   return lower.includes('wp-admin') ||
@@ -38,8 +38,7 @@ function isBotScan(pathname: string): boolean {
          lower.includes('wp-content') ||
          lower.includes('xmlrpc') ||
          lower.includes('.env') ||
-         lower.includes('wp-json') ||
-         lower === '/wp.php';
+         lower.includes('wp-json');
 }
 
 function getSearchQuery(referrer: string): string | null {
