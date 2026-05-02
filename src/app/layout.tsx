@@ -5,6 +5,7 @@ import { Nav } from "@/components/Nav";
 import { ThemeProvider } from "@/components/ThemeProvider";  // adjust path
 import { PersonSchema } from "@/components/Schema";
 import { Analytics } from "@vercel/analytics/next";
+import AiChat from "@/components/AiChat";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -58,6 +59,7 @@ export default function RootLayout({
         >
           <Nav />
           {children}
+          <AiChat />
           <Analytics />
         </ThemeProvider>
       </body>
