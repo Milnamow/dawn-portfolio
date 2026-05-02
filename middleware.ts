@@ -4,21 +4,20 @@ import { track } from '@vercel/analytics/server';
 
 export function middleware(request: NextRequest) {
   const referrer = request.headers.get('referer');
+  
+  // Always log that middleware ran
+  console.log(`[Middleware] Path: ${request.nextUrl.pathname} | Referrer: ${referrer ? 'present' : 'none'}`);
 
   if (referrer) {
-    const searchQuery = getSearchQuery(referrer);
-
-    if (searchQuery) {
-      // Log to Vercel Logs (visible in dashboard)
-      console.log(`[Search Referral] "${searchQuery}" | ${referrer}`);
-
-      // Track as Custom Event in Vercel Analytics
-      track('Search Referral', {
-        query: searchQuery,
-        referrer: referrer,
-        path: request.nextUrl.pathname,
-        source: getSource(referrer), // e.g., "google", "bing"
-      });
+    const query = getSearchQuery(referrer);
+    if (query) {
+      const source = getSource(referrer);
+      console.log(`[SEARCH_REFERRAL] query="${query}" source="${source}" path="${request.nextUrl.pathname}"`);
+      
+      // Optional: track even if on Hobby (it just won't show in Events panel)
+      try {
+        track('Search Referral', { query, source, path: request.nextUrl.pathname });
+      } catch (e) {}
     }
   }
 
@@ -32,14 +31,9 @@ function getSearchQuery(referrer: string): string | null {
     const params = url.searchParams;
 
     if (hostname.includes('google')) return params.get('q') || params.get('p');
-    if (hostname.includes('bing')) return params.get('q');
     if (hostname.includes('duckduckgo')) return params.get('q');
+    if (hostname.includes('bing')) return params.get('q');
     if (hostname.includes('yahoo')) return params.get('p') || params.get('q');
-    
-    // Brave Search
-    if (hostname.includes('search.brave.com') || hostname.includes('brave.com')) {
-      return params.get('q');
-    }
 
     return null;
   } catch {
@@ -49,11 +43,9 @@ function getSearchQuery(referrer: string): string | null {
 
 function getSource(referrer: string): string {
   try {
-    const hostname = new URL(referrer).hostname.toLowerCase();
-    if (hostname.includes('google')) return 'google';
-    if (hostname.includes('bing')) return 'bing';
-    if (hostname.includes('duckduckgo')) return 'duckduckgo';
-    if (hostname.includes('yahoo')) return 'yahoo';
+    const h = new URL(referrer).hostname.toLowerCase();
+    if (h.includes('google')) return 'google';
+    if (h.includes('duckduckgo')) return 'duckduckgo';
     return 'other';
   } catch {
     return 'unknown';
@@ -61,5 +53,5 @@ function getSource(referrer: string): string {
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+  matcher: '/:path*',
 };
