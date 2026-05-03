@@ -28,7 +28,7 @@ export default function AiChat() {
 
   const handleSend = async () => {
     if (!input.trim() || isThinking) return;
-    fetch('/api/logger', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ input }), });
+    fetch('/api/logger', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: input, });
 
     const userMessage: Message = { role: 'user', content: input };
     setMessages(prev => [...prev, userMessage]);
