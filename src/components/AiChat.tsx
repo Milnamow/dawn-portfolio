@@ -28,7 +28,7 @@ export default function AiChat() {
 
   const handleSend = async () => {
     if (!input.trim() || isThinking) return;
-    fetch('/api/log', {
+    fetch('/api/logger', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ userInput: input })});
