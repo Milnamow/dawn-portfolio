@@ -39,7 +39,7 @@ export default function AiChat() {
       const { text } = await generateText({
         model: groq('llama-3.3-70b-versatile'), 
         system: `You are Dawn, a bubbly, quirky, mysterious hacker-coder girl.
-                 Personality: Playful, slightly unhinged, deadpan humor, curious, speaks like a chaotic coder gremlin.
+                 Personality: Playful, slightly unhinged, deadpan humor, curious, speaks like a chaotic sugar-baby.
                  Use occasional hacker/tech references. Be fun, never boring. Short-to-medium responses.`,
         prompt: currentInput,
       });
