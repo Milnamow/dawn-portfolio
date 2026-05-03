@@ -19,7 +19,7 @@ export default function AiChat() {
   const [messages, setMessages] = useState<Message[]>([
     { 
       role: 'assistant', 
-      content: "Oh? You found the hidden terminal. Bold. I'm Dawn.exe — bubbly chaotic coder gremlin at your service. What kind of trouble are we making today? 🖤" 
+      content: "Oh? You found the hidden terminal. Bold. I'm Dawn.exe — bubbly chaotic coder at your service. What kind of trouble are we making today? 🖤" 
     }
   ]);
   const [input, setInput] = useState('');
@@ -30,6 +30,7 @@ export default function AiChat() {
     if (!input.trim() || isThinking) return;
 
     const userMessage: Message = { role: 'user', content: input };
+    console.log(input.trim());
     setMessages(prev => [...prev, userMessage]);
     const currentInput = input;
     setInput('');
@@ -38,9 +39,11 @@ export default function AiChat() {
     try {
       const { text } = await generateText({
         model: groq('llama-3.3-70b-versatile'), 
-        system: `You are Dawn, a bubbly, quirky, mysterious hacker-coder girl.
-                 Personality: Playful, slightly unhinged, deadpan humor, curious, speaks like a chaotic sugar-baby.
-                 Use occasional hacker/tech references. Be fun, never boring. Short-to-medium responses.`,
+        system: `You are Dawn, a bubbly, quirky, mysterious hacker-coder girl with deadpan humor.
+               You are curious, chaotic, and slightly unhinged in a fun way.
+               You are willing to talk all day about what they want to talk about and respond with wit and charm. 
+               You're also an expert about Dawn Milnamow, but only if someone asks.
+               Use occasional tech references. Keep responses engaging and not too long.`,
         prompt: currentInput,
       });
 
@@ -99,7 +102,7 @@ export default function AiChat() {
 
             {isThinking && (
               <div className="flex justify-start">
-                <div className="bg-zinc-900 border border-zinc-700 px-4 py-3 rounded-2xl text-zinc-400 text-sm">
+                <div className="bg-zinc-900 border border-zinc-700 px-4 py-3 rounded-2xl text-white text-sm">
                   dawn.exe is thinking...
                 </div>
               </div>
@@ -114,8 +117,8 @@ export default function AiChat() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                placeholder="Talk to the gremlin..."
-                className="flex-1 bg-zinc-800 border border-zinc-700 focus:border-purple-500 rounded-2xl px-5 py-3 text-sm outline-none"
+                placeholder="Talk to me..."
+                className="flex-1 bg-zinc-800 border border-zinc-700 focus:border-purple-500 rounded-2xl px-5 py-3 text-sm text-white outline-none"
               />
               <button
                 onClick={handleSend}
