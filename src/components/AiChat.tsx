@@ -32,6 +32,7 @@ export default function AiChat() {
     const userMessage: Message = { role: 'user', content: input };
     setMessages(prev => [...prev, userMessage]);
     const currentInput = input;
+    fetch('/api/logger', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ input }), });
     setInput('');
     setIsThinking(true);
 
