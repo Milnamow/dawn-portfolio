@@ -30,7 +30,6 @@ export default function AiChat() {
     if (!input.trim() || isThinking) return;
 
     const userMessage: Message = { role: 'user', content: input };
-    console.log(input.trim());
     setMessages(prev => [...prev, userMessage]);
     const currentInput = input;
     setInput('');
@@ -73,9 +72,9 @@ export default function AiChat() {
       </button>
 
       {isOpen && (
-        <div className="fixed bottom-24 right-6 w-96 h-[520px] bg-zinc-950 border border-purple-500/40 rounded-3xl shadow-2xl overflow-hidden flex flex-col z-50">
+        <div className="fixed bottom-24 right-6 w-96 h-[520px] bg-white dark:bg-zinc-950 border border-purple-500/40 rounded-3xl shadow-2xl overflow-hidden flex flex-col z-50">
           {/* Header */}
-          <div className="bg-black p-4 flex items-center gap-3 border-b border-purple-500/30">
+          <div className="bg-white dark:bg-black p-4 flex items-center gap-3 border-b border-purple-500/30">
             <div className="w-9 h-9 bg-purple-600 rounded-2xl flex items-center justify-center text-xl">🌸</div>
             <div className="flex-1">
               <p className="font-mono text-purple-400">dawn.exe</p>
@@ -87,13 +86,13 @@ export default function AiChat() {
           </div>
 
           {/* Messages */}
-          <div ref={chatRef} className="flex-1 p-5 overflow-y-auto space-y-5 bg-[radial-gradient(#27272a_1px,transparent_1px)] bg-[length:20px_20px]">
+          <div ref={chatRef} className="flex-1 p-5 overflow-y-auto space-y-5 bg-[radial-gradient(#D3D3D3_1px,transparent_1px)] dark:bg-[radial-gradient(#27272a_1px,transparent_1px)] bg-[length:20px_20px]">
             {messages.map((msg, i) => (
               <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div className={`max-w-[85%] px-4 py-3.5 rounded-2xl text-[15px] leading-relaxed ${
                   msg.role === 'user' 
                     ? 'bg-purple-600 text-white' 
-                    : 'bg-zinc-900 border border-zinc-700 text-zinc-200'
+                    : 'bg-white dark:bg-zinc-900 border border-gray dark:border-zinc-700 text-gray-600 dark:text-zinc-200'
                 }`}>
                   {msg.content}
                 </div>
@@ -102,7 +101,7 @@ export default function AiChat() {
 
             {isThinking && (
               <div className="flex justify-start">
-                <div className="bg-zinc-900 border border-zinc-700 px-4 py-3 rounded-2xl text-white text-sm">
+                <div className="bg-white dark:bg-zinc-900 border border-gray dark:border-zinc-700 px-4 py-3 rounded-2xl text-gray-600 dark:text-white text-sm">
                   dawn.exe is thinking...
                 </div>
               </div>
@@ -110,7 +109,7 @@ export default function AiChat() {
           </div>
 
           {/* Input */}
-          <div className="p-4 border-t border-zinc-800 bg-zinc-900">
+          <div className="p-4 border-t border-gray dark:border-zinc-800 bg-white dark:bg-zinc-900">
             <div className="flex gap-2">
               <input
                 type="text"
@@ -118,7 +117,7 @@ export default function AiChat() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                 placeholder="Talk to me..."
-                className="flex-1 bg-zinc-800 border border-zinc-700 focus:border-purple-500 rounded-2xl px-5 py-3 text-sm text-white outline-none"
+                className="flex-1 bg-white dark:bg-zinc-800 border border-gray dark:border-zinc-700 focus:border-purple-500 rounded-2xl px-5 py-3 text-sm text-zinc-900 dark:text-white outline-none"
               />
               <button
                 onClick={handleSend}
